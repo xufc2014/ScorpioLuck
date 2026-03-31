@@ -21,4 +21,4 @@ jobs:
         env:
           JUHE_API_KEY: ${{ secrets.JUHE_API_KEY }}
           DING_WEBHOOK: ${{ secrets.DING_WEBHOOK }}
-        run: python horoscope.py
+        run: python ./horoscope.py
