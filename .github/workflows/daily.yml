@@ -1,0 +1,24 @@
+name: 每日运势推送
+on:
+  schedule:
+    - cron: '0 1 * * *'  # 北京时间 9 点（UTC 1点）
+  workflow_dispatch:     # 允许手动测试
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - run: pip install -r requirements.txt
+
+      # 这里必须加 env，把密钥传给 Python！！！
+      - name: 运行运势脚本
+        env:
+          JUHE_API_KEY: ${{ secrets.JUHE_API_KEY }}
+          DING_WEBHOOK: ${{ secrets.DING_WEBHOOK }}
+        run: python horoscope.py
